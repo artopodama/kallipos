@@ -1,7 +1,12 @@
 #!/bin/sh
 #assemble and preprocess all the sources files
 
-if [ ! -d "./latex" ]; then
+if [ -d "./latex" ]; then 
+   for filename in latex/*.tex; do
+      [ -e "$filename" ] || continue
+      rm "$filename"
+   done
+else
    mkdir ./latex
 fi
 
@@ -24,9 +29,3 @@ pandoc -s latex/*.tex -o book.tex
 
 pandoc -N --quiet --variable "geometry=margin=1.2in" --variable mainfont="Noto Sans Regular" --variable sansfont="Noto Sans Regular" --variable monofont="Noto Sans Regular" --variable fontsize=12pt --variable version=2.0 book.tex  --pdf-engine=xelatex --toc -o book.pdf
 
-for filename in latex/*.tex; do
-   [ -e "$filename" ] || continue
-   rm "$filename"
-done
-
-rm -R latex
