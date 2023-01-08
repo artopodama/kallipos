@@ -1,4 +1,4 @@
-#!/bin/sh
+# !/bin/sh
 #assemble and preprocess all the sources files
 
 if [ -d "./latex" ]; then 
